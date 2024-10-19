@@ -3,14 +3,14 @@ productos = []
 def añadir_producto():
     nombre = input("Introduce el nombre del producto: ")
     precio = float(input("Introduce el precio del producto: "))
-    productos.append({'nombre': nombre, 'precio': precio})
+    productos.append({'nombre': nombre, 'precio': precio 'cantidad':cantidad })
     print(f"Producto '{nombre}' añadido con éxito.")
 
 def ver_productos():
     if productos:
         print("Lista de productos:")
         for i, producto in enumerate(productos):
-            print(f"{i + 1}. Nombre: {producto['nombre']}, Precio: {producto['precio']}")
+            print(f"{i + 1}. Nombre: {producto['nombre']}, Precio: {producto['precio'] } {producto['cantidad'] }")
     else:
         print("No hay productos en la lista.")
 
@@ -21,7 +21,7 @@ def actualizar_producto():
         if 0 <= indice < len(productos):
             nuevo_nombre = input("Introduce el nuevo nombre del producto: ")
             nuevo_precio = float(input("Introduce el nuevo precio del producto: "))
-            productos[indice] = {'nombre': nuevo_nombre, 'precio': nuevo_precio}
+            productos[indice] = {'nombre': nuevo_nombre, 'precio': nuevo_precio ,'cantidad': nuevo_cantidad}
             print("Producto actualizado con éxito.")
         else:
             print("Índice inválido.")
@@ -39,7 +39,7 @@ def eliminar_producto():
 def guardar_datos():
     with open("productos.txt", "w") as file:
         for producto in productos:
-            file.write(f"{producto['nombre']},{producto['precio']}\n")
+            file.write(f"{producto['nombre']},{producto['precio']},{producto['cantidad']} \n")
     print("Datos guardados en 'productos.txt'.")
 
 def cargar_datos():
@@ -47,7 +47,7 @@ def cargar_datos():
         with open("productos.txt", "r") as file:
             for line in file:
                 nombre, precio = line.strip().split(',')
-                productos.append({'nombre': nombre, 'precio': float(precio)})
+                productos.append({'nombre': nombre, 'precio': float(precio)},'cantidad': int(cantidad)})
         print("Datos cargados con éxito.")
     except FileNotFoundError:
         print("No se encontró el archivo 'productos.txt'.")
