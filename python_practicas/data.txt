@@ -1,2 +1,0 @@
-punto: 3 comentario: holaaa
-punto: 2 comentario: kkkkk
