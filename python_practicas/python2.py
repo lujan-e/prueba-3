@@ -1,15 +1,33 @@
 productos = []
 
 def añadir_producto():
-    """Función para añadir un nuevo producto a la lista."""
-    nombre = input("Introduce el nombre del producto: ")
-    precio = float(input("Introduce el precio del producto: "))
-    cantidad = int(input("Introduce la cantidad del producto: "))
+    """Función para añadir un nuevo producto con validación."""
+    while True:
+        nombre = input("Introduce el nombre del producto (solo letras): ")
+        if not nombre.replace(' ', '').isalpha():  # Verifica que el nombre solo contenga letras
+            print("Error: El nombre solo debe contener letras. Intenta nuevamente.")
+        else:
+            break
+
+    while True:
+        try:
+            precio = float(input("Introduce el precio del producto: "))
+            break
+        except ValueError:
+            print("Error: El precio debe ser un número. Intenta nuevamente.")
+
+    while True:
+        try:
+            cantidad = int(input("Introduce la cantidad del producto: "))
+            break
+        except ValueError:
+            print("Error: La cantidad debe ser un número entero. Intenta nuevamente.")
+
     productos.append({'nombre': nombre, 'precio': precio, 'cantidad': cantidad})
     print(f"Producto '{nombre}' añadido con éxito.")
 
 def ver_productos():
-    """Función para ver todos los productos de la lista."""
+    """Función para ver todos los productos en la lista."""
     if productos:
         print("\nLista de productos:")
         for i, producto in enumerate(productos, start=1):
@@ -18,22 +36,40 @@ def ver_productos():
         print("\nNo hay productos en la lista.")
 
 def actualizar_producto():
-    """Función para actualizar un producto existente."""
+    """Función para actualizar un producto con validaciones."""
     ver_productos()
     if productos:
         try:
             indice = int(input("Selecciona el número del producto que deseas actualizar: ")) - 1
             if 0 <= indice < len(productos):
-                nuevo_nombre = input("Introduce el nuevo nombre del producto: ")
-                nuevo_precio = float(input("Introduce el nuevo precio del producto: "))
-                nueva_cantidad = int(input("Introduce la nueva cantidad del producto: "))
+                while True:
+                    nuevo_nombre = input("Introduce el nuevo nombre del producto (solo letras): ")
+                    if not nuevo_nombre.replace(' ', '').isalpha():
+                        print("Error: El nombre solo debe contener letras. Intenta nuevamente.")
+                    else:
+                        break
+
+                while True:
+                    try:
+                        nuevo_precio = float(input("Introduce el nuevo precio del producto: "))
+                        break
+                    except ValueError:
+                        print("Error: El precio debe ser un número. Intenta nuevamente.")
+
+                while True:
+                    try:
+                        nueva_cantidad = int(input("Introduce la nueva cantidad del producto: "))
+                        break
+                    except ValueError:
+                        print("Error: La cantidad debe ser un número entero. Intenta nuevamente.")
+
                 productos[indice] = {'nombre': nuevo_nombre, 'precio': nuevo_precio, 'cantidad': nueva_cantidad}
                 print("Producto actualizado con éxito.")
             else:
                 print("Índice inválido.")
         except ValueError:
             print("Por favor, introduce un número válido.")
-            
+
 def eliminar_producto():
     """Función para eliminar un producto de la lista."""
     ver_productos()
@@ -69,8 +105,8 @@ def cargar_datos():
         print("Error al leer los datos del archivo.")
 
 def menu():
-    """Función para mostrar el menú principal y gestionar las opciones."""
-    cargar_datos() 
+    """Función principal para mostrar el menú y gestionar las opciones."""
+    cargar_datos()  # Cargar los datos desde el archivo al iniciar el programa
     while True:
         print("\n1: Añadir producto")
         print("2: Ver productos")
@@ -96,6 +132,7 @@ def menu():
 
 if __name__ == "__main__":
     menu()
+
 
 
 
